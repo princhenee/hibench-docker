@@ -5,6 +5,23 @@ FROM hibench-base
 MAINTAINER kevin chen <ge.chen@intel.com>
 USER root
 
+#==============================
+# Maven Installation
+#==============================
+
+# Maven version 4 or 5
+ENV MAVEN_VERSION 3.1.0
+
+# download maven
+RUN wget https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/${MAVEN_VERSION}/apache-maven-${MAVEN_VERSION}-bin.tar.gz
+RUN tar xzf apache-maven-${MAVEN_VERSION}-bin.tar.gz -d /usr/local
+RUN mv /usr/local/apach-maven-* /usr/local/apache-maven
+RUN rm -f apache-maven-${MAVEN_VERSION}-bin.tar.gz
+
+# define environment variables for maven
+ENV M2_HOME /usr/local/apache-maven
+ENV PATH $PATH:/usr/local/apache-maven/bin
+
 
 #==============================
 # CDH Installation
@@ -43,7 +60,7 @@ COPY conf/yarn-site.xml /etc/hadoop/conf/yarn-site.xml
 COPY scripts/hadoop-env.sh /etc/hadoop/conf/hadoop-env.sh
 
 #Format HDFS
-RUN sudo -u hdfs hdfs namenode -format
+RUN hdfs namenode -format
 
 COPY scripts/bootstrap.sh /usr/bin/bootstrap.sh
 RUN chmod +x /usr/bin/bootstrap.sh
