@@ -2,7 +2,6 @@
 
 FROM ubuntu:14.04
 
-MAINTAINER kevin chen <ge.chen@intel.com>
 USER root
 
 
@@ -26,7 +25,9 @@ RUN \
 RUN apt-get -y install openssh-server; mkdir -p /var/run/sshd; locale-gen en_US en_US.UTF-8
 
 # passwordless ssh
+RUN rm -f /etc/ssh/ssh_host_dsa_key
 RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key
+RUN rm -f /etc/ssh/ssh_host_rsa_key
 RUN ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key
 RUN ssh-keygen -q -N "" -t rsa -f /root/.ssh/id_rsa
 RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
@@ -96,10 +97,11 @@ ENV PATH $PATH:/usr/local/scala/bin
 
 # HiBench Version ( can be 3.0 or 4.0 )
 ENV HIBENCH_VERSION 4.0
+ENV HIBENCH_HOME /root/HiBench-${HIBENCH_VERSION}-branch
 
 # download right version of HiBench
 RUN cd /root
 RUN wget https://github.com/intel-hadoop/HiBench/archive/v${HIBENCH_VERSION}-branch.zip
-RUN unzip HiBench-v${HIBENCH_VERSION}-branch.zip
+RUN unzip v${HIBENCH_VERSION}-branch.zip
 
 
