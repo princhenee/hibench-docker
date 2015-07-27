@@ -1,10 +1,16 @@
 # build environment on ubuntu14.04
 
 FROM ubuntu:14.04
+#FROM hibench-jdk
 
 MAINTAINER kevin chen <ge.chen@intel.com>
 USER root
 
+## add proxy config inside FIREWALL
+#ENV http_proxy="http://child-prc.intel.com:913"
+#ENV https_proxy="http://child-prc.intel.com:913"
+#ENV HTTP_PROXY="http://child-prc.intel.com:913"
+#ENV HTTPS_PROXY="http://child-prc.intel.com:913"
 
 #==============================
 # System Basic Tools  Installation
@@ -26,7 +32,9 @@ RUN \
 RUN apt-get -y install openssh-server; mkdir -p /var/run/sshd; locale-gen en_US en_US.UTF-8
 
 # passwordless ssh
+RUN rm -f /etc/ssh/ssh_host_dsa_key
 RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key
+RUN rm -f /etc/ssh/ssh_host_rsa_key
 RUN ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key
 RUN ssh-keygen -q -N "" -t rsa -f /root/.ssh/id_rsa
 RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
@@ -100,6 +108,7 @@ ENV HIBENCH_VERSION 4.0
 # download right version of HiBench
 RUN cd /root
 RUN wget https://github.com/intel-hadoop/HiBench/archive/v${HIBENCH_VERSION}-branch.zip
-RUN unzip HiBench-v${HIBENCH_VERSION}-branch.zip
+RUN unzip v${HIBENCH_VERSION}-branch.zip
+RUN rm -f v${HIBENCH_VERSION}-branch.zip
 
 
