@@ -3,14 +3,13 @@
 FROM ubuntu:14.04
 #FROM hibench-jdk
 
-MAINTAINER kevin chen <ge.chen@intel.com>
 USER root
 
 ## add proxy config inside FIREWALL
-#ENV http_proxy="http://child-prc.intel.com:913"
-#ENV https_proxy="http://child-prc.intel.com:913"
-#ENV HTTP_PROXY="http://child-prc.intel.com:913"
-#ENV HTTPS_PROXY="http://child-prc.intel.com:913"
+ENV http_proxy="http://child-prc.intel.com:913"
+ENV https_proxy="http://child-prc.intel.com:913"
+ENV HTTP_PROXY="http://child-prc.intel.com:913"
+ENV HTTPS_PROXY="http://child-prc.intel.com:913"
 
 #==============================
 # System Basic Tools  Installation
@@ -62,7 +61,7 @@ RUN apt-get install -y python-numpy python-matplotlib
 #==============================
 
 # jdk-version
-ENV JDK_VERSION 6
+ENV JDK_VERSION 7
 
 # Install Java
 RUN \
@@ -99,11 +98,30 @@ ENV PATH $PATH:/usr/local/scala/bin
 
 
 #==============================
+# Maven Installation
+#==============================
+
+# Maven version 4 or 5
+ENV MAVEN_VERSION 3.1.0
+
+# download maven
+RUN wget https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/${MAVEN_VERSION}/apache-maven-${MAVEN_VERSION}-bin.tar.gz
+RUN tar xzf apache-maven-${MAVEN_VERSION}-bin.tar.gz
+RUN rm -f apache-maven-${MAVEN_VERSION}-bin.tar.gz
+RUN mv apache-maven-* /usr/local/apache-maven
+
+# define environment variables for maven
+ENV M2_HOME /usr/local/apache-maven
+ENV PATH $PATH:/usr/local/apache-maven/bin
+
+
+#==============================
 # ADD HiBench to docker image
 #==============================
 
 # HiBench Version ( can be 3.0 or 4.0 )
 ENV HIBENCH_VERSION 4.0
+ENV HIBENCH_HOME /root/HiBench-${HIBENCH_VERSION}-branch
 
 # download right version of HiBench
 RUN cd /root

@@ -20,19 +20,19 @@
 
   <property>
      <name>hadoop.tmp.dir</name>
-     <value>/var/lib/hadoop-hdfs/cache/${user.name}</value>
+     <value>/var/lib/hadoop-hdfs/cache/root</value>
   </property>
   <property>
      <name>dfs.namenode.name.dir</name>
-     <value>file:///var/lib/hadoop-hdfs/cache/${user.name}/dfs/name</value>
+     <value>/var/lib/hadoop-hdfs/cache/root/dfs/name</value>
   </property>
   <property>
      <name>dfs.namenode.checkpoint.dir</name>
-     <value>file:///var/lib/hadoop-hdfs/cache/${user.name}/dfs/namesecondary</value>
+     <value>/var/lib/hadoop-hdfs/cache/root/dfs/namesecondary</value>
   </property>
   <property>
      <name>dfs.datanode.data.dir</name>
-     <value>file:///var/lib/hadoop-hdfs/cache/${user.name}/dfs/data</value>
+     <value>/var/lib/hadoop-hdfs/cache/root/dfs/data</value>
   </property>
 
   <property>
