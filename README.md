@@ -1,40 +1,20 @@
 # license Apache 2.0
 
-This is the docker image for [intel-hibench](https://github.com/intel-hadoop/HiBench) implementation
-We build a  pseudo cluster environment on Ubuntu14.04 and run applications on yarn-cluster
-
-### Docker image
-
-First, Build the docker image by executing:
-
-```bash
-
-    $./scripts/build-docker.sh
-```
+This is the docker image for [intel-hibench](https://github.com/intel-hadoop/HiBench) implementation.
+We build a  pseudo single-node environment on Ubuntu14.04.
 
 
-### Run HiBench workload
+### Run Container with HiBench and all dependencies installed
 
-Then, run the wordcount workload by executing:
+Then, launch the container by executing:
 
 ```bash
-
-    $./scripts/run-example.sh
-
-```
-
-You are encouraged to test different workloads by modifying the configurations in
-the script "scripts/run-example.sh"
-**make sure that your configuration of HiBench should be coherent with the cdh-cluster, and you can modify it under the directory under the cdh image.**
-
-```
-    $sudo docker run -ti hibench-docker /bin/bash
+    $./scripts/run-container.sh
 ```
 
 When entering the container of the hibench-docker, you are normally guided to a root user, please modify configurations under the HiBench directory :
-```
+```bash
     #cd /root/HiBench-v${HiBench_VERSION}-branch
-    #cd conf/
 ```
 
 ### References
@@ -45,3 +25,5 @@ When entering the container of the hibench-docker, you are normally guided to a 
 - https://github.com/ezhaar/docker-spark
 - https://github.com/sequenceiq/docker-hadoop-ubuntu
 - https://github.com/chali/cdh5-pseudo-distributed-cluster-docker
+- https://www.digitalocean.com/community/tutorials/how-to-install-hadoop-on-ubuntu-13-10
+- http://serverfault.com/questions/666149/docker-copy-issue-no-such-file-or-directory

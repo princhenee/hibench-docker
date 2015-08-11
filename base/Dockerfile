@@ -22,7 +22,7 @@ RUN \
   apt-get -y upgrade && \
   apt-get install -y build-essential && \
   apt-get install -y software-properties-common && \
-  apt-get install -y git wget curl man unzip vim-tiny && \
+  apt-get install -y git wget curl man unzip vim-tiny bc && \
 
 # compilers and basic tools
   apt-get install -y gfortran make gcc 
@@ -36,7 +36,12 @@ RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key
 RUN rm -f /etc/ssh/ssh_host_rsa_key
 RUN ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key
 RUN ssh-keygen -q -N "" -t rsa -f /root/.ssh/id_rsa
-RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
+RUN cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+RUN rm -f /root/.ssh/config
+RUN echo "Host *" >> /root/.ssh/config
+RUN echo "    User                  root                   " >> /root/.ssh/config
+RUN echo "    StrictHostKeyChecking no                     " >> /root/.ssh/config
+RUN echo "    IdentifyFile          /root/.ssh/id_rsa.pub  " >> /root/.ssh/config
 
 
 #==============================
@@ -82,12 +87,12 @@ ENV PATH $PATH:$JAVA_HOME/bin
 #==============================
 
 # export scala variables
-ENV SCALA_VERSION 2.10.4
+ENV SCALA_VERSION 2.10.5
 ENV SCALA_HOME /usr/local/scala
 
 # Download and extract scala${SCALA_VERSION}
 RUN /usr/bin/wget \
-  http://scala-lang.org/files/archive/scala-${SCALA_VERSION}.tgz \
+  http://downloads.typesafe.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz \
     -P /tmp && tar -xzf /tmp/scala-${SCALA_VERSION}.tgz -C /usr/local/ && rm -rf /tmp/*
 
 # change the default scala_home name
@@ -124,9 +129,8 @@ ENV HIBENCH_VERSION 4.0
 ENV HIBENCH_HOME /root/HiBench-${HIBENCH_VERSION}-branch
 
 # download right version of HiBench
-RUN cd /root
 RUN wget https://github.com/intel-hadoop/HiBench/archive/v${HIBENCH_VERSION}-branch.zip
-RUN unzip v${HIBENCH_VERSION}-branch.zip
+RUN unzip v${HIBENCH_VERSION}-branch.zip -d /root/
 RUN rm -f v${HIBENCH_VERSION}-branch.zip
-
+COPY conf/99-user_defined_properties.conf $HIBENCH_HOME/conf/
 

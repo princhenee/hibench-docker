@@ -1,0 +1,39 @@
+
+DOCKER DEPENDENCIES
+===================
+
+*----hibench-base( Python, Java, Scala, Maven, HiBench-version-specified )
+   |
+   |
+   *----hibench-hadoop-spark( Hadoop, Spark )
+
+
+
+
+PROJECT DIRECTORIES
+===================
+
+#---- base
+|  |
+|  >---- Dockerfile
+|
+|
+#---- hadoop-spark
+|  |
+|  >---- Dockerfile
+|
+|
+#---- conf
+|  |
+|  #---- hadoop-confs
+|  |
+|  #---- HiBench-v${HIBENCH_VERSION}
+|
+|
+#---- scripts
+   |
+   #---- hadoop-spark-scripts
+   |
+   >---- build-docker.sh
+   |
+   >---- run-container.sh
