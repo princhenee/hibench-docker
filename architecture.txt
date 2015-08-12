@@ -6,6 +6,9 @@ DOCKER DEPENDENCIES
    |
    |
    *----hibench-hadoop-spark( Hadoop, Spark )
+   |
+   |
+   *----hibench-cdh( Hadoop, Spark in CDH distribution )
 
 
 
@@ -16,23 +19,29 @@ PROJECT DIRECTORIES
 #---- base
 |  |
 |  >---- Dockerfile
+|  |
+|  >---- base-core
+|  |
+|  #---- conf
 |
 |
 #---- hadoop-spark
 |  |
 |  >---- Dockerfile
-|
-|
-#---- conf
 |  |
-|  #---- hadoop-confs
+|  #---- conf
+| 
+| 
+#---- CDH-docker
 |  |
-|  #---- HiBench-v${HIBENCH_VERSION}
-|
+|  #---- Dockerfile
+|  |
+|  #---- conf
+| 
 |
 #---- scripts
    |
-   #---- hadoop-spark-scripts
+   >---- gen_base_dockerfile.sh
    |
    >---- build-docker.sh
    |

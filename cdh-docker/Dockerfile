@@ -1,7 +1,6 @@
 # build cdh environment on hibench-base
 
-#FROM hibench-base
-FROM hibench-base-2
+FROM hibench-base
 
 USER root
 
@@ -51,7 +50,7 @@ USER root
 ##==============================
 #
 ## NameNode (HDFS)
-#EXPOSE 8020 50070
+#EXPOSE 9000 50070
 #
 ## DataNode (HDFS)
 #EXPOSE 50010 50020 50075
@@ -65,23 +64,6 @@ USER root
 ## entrypoint by launching cluster
 #CMD ["/usr/bin/bootstrap.sh"]
 
-
-##==============================
-## Maven Installation
-##==============================
-#
-## Maven version 4 or 5
-#ENV MAVEN_VERSION 3.1.0
-#
-## download maven
-#RUN wget https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/${MAVEN_VERSION}/apache-maven-${MAVEN_VERSION}-bin.tar.gz
-#RUN tar xzf apache-maven-${MAVEN_VERSION}-bin.tar.gz
-#RUN rm -f apache-maven-${MAVEN_VERSION}-bin.tar.gz
-#RUN mv apache-maven-* /usr/local/apache-maven
-#
-## define environment variables for maven
-#ENV M2_HOME /usr/local/apache-maven
-#ENV PATH $PATH:/usr/local/apache-maven/bin
 
 
 #==============================
@@ -129,7 +111,7 @@ RUN ${SPARK_HOME}/sbin/start-all.sh
 #==============================
 
 # NameNode (HDFS)
-EXPOSE 8020 50070
+EXPOSE 9000 50070
 
 # DataNode (HDFS)
 EXPOSE 50010 50020 50075
