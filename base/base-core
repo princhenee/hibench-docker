@@ -33,11 +33,9 @@ RUN rm -f /etc/ssh/ssh_host_rsa_key
 RUN ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key
 RUN ssh-keygen -q -N "" -t rsa -f /root/.ssh/id_rsa
 RUN cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
-RUN rm -f /root/.ssh/config
-RUN echo "Host *" >> /root/.ssh/config
-RUN echo "    User                  root                   " >> /root/.ssh/config
-RUN echo "    StrictHostKeyChecking no                     " >> /root/.ssh/config
-RUN echo "    IdentifyFile          /root/.ssh/id_rsa.pub  " >> /root/.ssh/config
+RUN echo "    StrictHostKeyChecking no                     " >> /etc/ssh/ssh_config
+RUN echo "    UserKnownHostsFile=/dev/null                 " >> /etc/ssh/ssh_config
+
 
 
 #==============================
@@ -108,6 +106,7 @@ RUN mv apache-maven-* /usr/local/apache-maven
 # define environment variables for maven
 ENV M2_HOME /usr/local/apache-maven
 ENV PATH $PATH:/usr/local/apache-maven/bin
+COPY conf/maven_settings.xml ${M2_HOME}/conf/settings.xml
 
 
 #==============================
@@ -123,4 +122,5 @@ RUN wget https://github.com/intel-hadoop/HiBench/archive/v${HIBENCH_VERSION}-bra
 RUN unzip v${HIBENCH_VERSION}-branch.zip -d /root/
 RUN rm -f v${HIBENCH_VERSION}-branch.zip
 COPY conf/99-user_defined_properties.conf $HIBENCH_HOME/conf/
+RUN $HIBENCH_HOME/bin/build-all.sh
 

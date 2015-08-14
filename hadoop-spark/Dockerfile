@@ -76,13 +76,14 @@ RUN rm -f hadoop-*.tar.gz
 #==============================
 
 # spark version
-ENV SPARK_VERSION 1.3.0
+ENV SPARK_VERSION spark1.3
+ENV SPARK_VERSION_DETAIL 1.3.0
 ENV HADOOP_FOR_SPARK_VERSION 2.4
-ENV SPARK_HOME /usr/local/spark-${SPARK_VERSION}
+ENV SPARK_HOME /usr/local/spark-${SPARK_VERSION_DETAIL}
 ENV SPARK_MASTER_IP localhost
 
 # download spark
-#RUN wget http://mirror.reverse.net/pub/apache/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_FOR_SPARK_VERSION}.tgz 
+#RUN wget http://mirror.reverse.net/pub/apache/spark/spark-${SPARK_VERSION_DETAIL}/spark-${SPARK_VERSION_DETAIL}-bin-hadoop${HADOOP_FOR_SPARK_VERSION}.tgz 
 COPY spark-1.3.0-bin-hadoop2.4.tgz /
 RUN tar xzf spark-*.tgz -C /usr/local
 RUN mv /usr/local/spark-* ${SPARK_HOME}
