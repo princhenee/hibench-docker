@@ -121,6 +121,6 @@ ENV HIBENCH_HOME /root/HiBench-${HIBENCH_VERSION}-branch
 RUN wget https://github.com/intel-hadoop/HiBench/archive/v${HIBENCH_VERSION}-branch.zip
 RUN unzip v${HIBENCH_VERSION}-branch.zip -d /root/
 RUN rm -f v${HIBENCH_VERSION}-branch.zip
-COPY conf/99-user_defined_properties.conf $HIBENCH_HOME/conf/
+COPY conf/99-user_defined_properties.conf ${HIBENCH_HOME}/conf/
 RUN $HIBENCH_HOME/bin/build-all.sh
 

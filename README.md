@@ -4,17 +4,21 @@ This is the docker image for [intel-hibench](https://github.com/intel-hadoop/HiB
 We build a  pseudo single-node environment on Ubuntu14.04.
 
 
-### Run Container with HiBench and all dependencies installed
+### Build and Run Container with HiBench and all dependencies installed
 
-Then, launch the container by executing:
+Launch the container by executing:
 
 ```bash
-    $./scripts/run-container.sh
+    $./scripts/run-container.sh cdh
+```
+OR
+```bash
+    $./scripts/run-container.sh open-source
 ```
 
 When entering the container of the hibench-docker, you are normally guided to a root user, please modify configurations under the HiBench directory :
 ```bash
-    #cd /root/HiBench-v${HiBench_VERSION}-branch
+    #cd ${HIBENCH_HOME}
 ```
 
 ### References

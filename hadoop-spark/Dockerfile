@@ -5,43 +5,6 @@ FROM hibench-base
 USER root
 
 #==============================
-# CDH Installation            #
-#==============================
-
-# # CDH version 4 or 5
-# ENV CDH_VERSION 5
-# 
-# #Add the CDH 5 repository
-# COPY conf/cloudera.list /etc/apt/sources.list.d/cloudera.list
-# #Set preference for cloudera packages
-# COPY conf/cloudera.pref /etc/apt/preferences.d/cloudera.pref
-#
-# #Add a Repository Key
-# RUN wget http://archive.cloudera.com/cdh${CDH_VERSION}/ubuntu/trusty/amd64/cdh/archive.key -O archive.key && sudo apt-key add archive.key 
-# RUN apt-get update
-#
-# # install hadoop-yarn
-# RUN apt-get -y install hadoop-conf-pseudo
-#
-# # install spark
-# RUN apt-get -y install spark-core spark-history-server spark-python
-#
-#==============================
-# NOTES for CDH installers    #
-#                             #
-# HADOOP_CONF_DIR=/etc/hadoop #
-# SPARK_CONF_DIR=/etc/spark   #
-#                             #
-# AND PLEASE PUT CONFIG       #
-# FILES INTO THE RIGHT        #
-# DIRECTORIES                 #
-#==============================
-
-
-
-
-
-#==============================
 # HADOOP Installation
 #==============================
 

@@ -24,13 +24,13 @@ case "$1" in
      second-step
      sudo docker build -t hibench-docker ${HOME_DIR}/cdh-docker/
      ;;
-  "standalone")
+  "open-source")
      build-base
      second-step
      sudo docker build -t hibench-docker ${HOME_DIR}/hadoop-spark/
      ;;
   *)
-     echo "Usage $0 {cdh|standalone}"
+     echo "Usage $0 {cdh|open-source}"
      exit 1
      ;;
 esac
