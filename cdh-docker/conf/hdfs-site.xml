@@ -8,11 +8,20 @@
     <value>1</value>
   </property>
 
+  <!--
+       IMPORTANT
+       Set dfs permissions to false
+       Enable other users than 'hdfs/hdfs'
+       to launch the file system
+  -->
   <property>
     <name>dfs.permissions</name>
     <value>false</value>
   </property>
 
+  <!--
+       Default hdfs file system path settings
+  -->
   <property>
      <name>hadoop.tmp.dir</name>
      <value>/var/lib/hadoop-hdfs</value>
